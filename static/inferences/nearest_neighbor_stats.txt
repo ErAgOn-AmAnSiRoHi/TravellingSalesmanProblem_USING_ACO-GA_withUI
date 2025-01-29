@@ -1,0 +1,2 @@
+Nearest Neighbor Statistics:
+Average Nearest Neighbor Distance: 491.467145913102

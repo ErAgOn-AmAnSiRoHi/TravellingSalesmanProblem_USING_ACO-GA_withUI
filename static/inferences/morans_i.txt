@@ -1,0 +1,3 @@
+Moran's I Analysis:
+Moran's I for X: nan
+Moran's I for Y: nan

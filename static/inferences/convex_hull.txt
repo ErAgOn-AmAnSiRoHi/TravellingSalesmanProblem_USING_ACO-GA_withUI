@@ -1,0 +1,3 @@
+Convex Hull Analysis:
+Convex Hull Perimeter: 21174.72933186626
+Convex Hull Area: 26068088.5

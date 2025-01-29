@@ -1,0 +1,5 @@
+Dispersion Measures:
+Range - x: 7752.0, y: 5174.0
+Variance - x: 5590811.333333336, y: 1702378.9250886522
+Standard Deviation - x: 2364.4896560004945, y: 1304.7524382382476
+IQR - x: 3873.75, y: 1791.75

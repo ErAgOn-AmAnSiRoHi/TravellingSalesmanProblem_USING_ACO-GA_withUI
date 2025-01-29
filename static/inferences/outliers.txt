@@ -1,0 +1,3 @@
+Outlier Detection:
+Number of outliers in x: 0
+Number of outliers in y: 0

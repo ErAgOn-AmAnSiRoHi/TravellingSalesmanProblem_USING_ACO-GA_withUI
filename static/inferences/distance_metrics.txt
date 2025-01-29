@@ -1,0 +1,3 @@
+Distance Metrics:
+Minimum Pairwise Distance: 131.46862743635836
+Maximum Pairwise Distance: 8416.991683493574
