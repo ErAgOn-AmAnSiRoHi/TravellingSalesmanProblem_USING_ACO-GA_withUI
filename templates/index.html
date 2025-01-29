@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <title>Algorithm Selector</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Traveling Salesman Solver</h1>
+        <p class="intro-text">Upload your CSV/TSP file to start visualizing the optimization.</p>
+        <form id="algorithmForm" action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data">
+            <label>Upload CSV/TSP File:</label>
+            <input type="file" name="file" class="file-input" required onchange="uploadFile(this)"><br>
+            <label>Select Algorithm:</label>
+            <select name="algorithm" class="select-input">
+                <option value="ACO">ACO</option>
+                <option value="GA">GA</option>
+            </select><br>
+            <button type="submit" class="btn">Start</button>
+        </form>
+        <form action="{{ url_for('show_stats') }}" method="post" style="margin-top: 20px;">
+            <button type="submit" class="btn">Show Stats</button>
+        </form>
+    </div>
+
+    <script>
+        function uploadFile(input) {
+            if (input.files && input.files[0]) {
+                const formData = new FormData();
+                formData.append('file', input.files[0]);
+
+                fetch('{{ url_for("upload_file_immediately") }}', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        alert('Error uploading file: ' + data.error);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error uploading file');
+                });
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <title>Statistical Analysis</title>
+    <style>
+        .stats-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+        
+        .canvas {
+            background: white;
+            color: black;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin: 20px 0;
+            min-height: 400px;
+        }
+        
+        /* .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        .nav-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        } */
+
+        .nav-buttons {
+            display: flex;
+            justify-content: center;  /* Change from space-between to center */
+            gap: 120px;               /* Add gap between buttons */
+            margin-top: 20px;
+        }
+
+        .nav-btn {            /* Add fixed width */
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;      /* Ensure text is centered */
+        }
+        
+        .nav-btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+        }
+        
+        .text-content {
+            white-space: pre-line;
+            font-family: monospace;
+        }
+        
+        .stats-image {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="stats-container">
+        <center><h1>Statistical Inference</h1></center>
+        <div class="canvas" id="statsCanvas">
+            <!-- Content will be dynamically loaded here -->
+        </div>
+        <div class="nav-buttons">
+            <button class="nav-btn" id="prevBtn" onclick="showPrevious()" disabled>← Previous</button>
+            <button class="nav-btn" id="nextBtn" onclick="showNext()">Next →</button>
+        </div>
+    </div>
+
+    <script>
+        const stats = {{ stats_data|tojson }};
+        let currentIndex = 0;
+
+        function updateCanvas() {
+            const canvas = document.getElementById('statsCanvas');
+            const currentStat = stats[currentIndex];
+            
+            canvas.innerHTML = '';
+            
+            if (currentStat.type === 'text') {
+                const textDiv = document.createElement('div');
+                textDiv.className = 'text-content';
+                textDiv.textContent = currentStat.content;
+                canvas.appendChild(textDiv);
+            } else if (currentStat.type === 'image') {
+                const img = document.createElement('img');
+                img.src = currentStat.content;
+                img.className = 'stats-image';
+                canvas.appendChild(img);
+            }
+
+            // Update button states
+            document.getElementById('prevBtn').disabled = currentIndex === 0;
+            document.getElementById('nextBtn').disabled = currentIndex === stats.length - 1;
+        }
+
+        function showNext() {
+            if (currentIndex < stats.length - 1) {
+                currentIndex++;
+                updateCanvas();
+            }
+        }
+
+        function showPrevious() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateCanvas();
+            }
+        }
+
+        // Initialize with first stat
+        updateCanvas();
+    </script>
+</body>
+</html>

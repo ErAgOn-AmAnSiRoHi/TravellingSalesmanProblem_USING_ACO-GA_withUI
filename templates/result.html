@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="result-container">
+        <h2>Optimized Route Result</h2>
+        <img src="{{ url_for('static', filename='gifs/' + gif_name) }}" alt="Result GIF" class="result-image">
+    </div>
+</body>
+</html>
